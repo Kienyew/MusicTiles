@@ -7,11 +7,11 @@
 #include <math.h>    /* fabsf(), cos(), sin() */
 
 // ------ DEFINITIONS ------
-#define WINDOW_TITLE                                                           "节奏大师 仿制"
-#define SCREEN_WIDTH                                                                    1200
+#define WINDOW_TITLE                                                          "节奏大师 仿制"
+#define SCREEN_WIDTH                                                                     800
 #define SCREEN_HEIGHT                                                                    500
 
-#define LINE                                                                               8
+#define LINE                                                                               4
 #define LINE_WIDTH                                                                       100
 #define MAX_MUSIC_NOTE_EACH_LINE                                                         100
 #define MARGIN_BETWEEN_LINE                                                               10
@@ -123,7 +123,7 @@ static void endGame();
 // ------ GLOBAL VARIABLES ------
 const int LEFT_MARGIN                            = (SCREEN_WIDTH - (LINE_WIDTH * LINE) - (MARGIN_BETWEEN_LINE * (LINE - 1))) / 2;
 const int RIGHT_MARGIN                           = LEFT_MARGIN;
-const static KeyboardKey TOUCH_BLOCK_KEYS[LINE]  = { KEY_A, KEY_S, KEY_D, KEY_F, KEY_H, KEY_J, KEY_K, KEY_L };
+const static KeyboardKey TOUCH_BLOCK_KEYS[LINE]  = { KEY_H, KEY_J, KEY_K, KEY_L };
 
 static TouchBlock touch_blocks[LINE]             = { 0 };
 static List music_note_lists[LINE]               = { 0 };
@@ -315,7 +315,7 @@ static void initGame()
 void updateGame()
 {
     // push a new music node
-    if (frame_counter % 2 == 0)
+    if (frame_counter % 20 == 0)
     {
         int line = GetRandomValue(0, LINE - 1);
         MusicNote music_note = {
@@ -323,7 +323,7 @@ void updateGame()
             .y      = -MUSIC_NOTE_HEIGHT,
             .width  = MUSIC_NOTE_WIDTH,
             .height = MUSIC_NOTE_HEIGHT,
-            .speed  = INIT_MUSIC_NOTE_SPEED + (frame_counter / 300),
+            .speed  = INIT_MUSIC_NOTE_SPEED + (frame_counter / 500),
             .color  = MUSIC_NOTE_INIT_COLOR
         };
         list_append_tail(&music_note_lists[line], &music_note, sizeof(MusicNote));
@@ -403,7 +403,7 @@ void updateGame()
         for (ListNode* node = music_note_lists[line].head; node != NULL; node = node->prev)
         {
             MusicNote* music_note = ((MusicNote*)node->data);
-            music_note->speed = INIT_MUSIC_NOTE_SPEED + (frame_counter / 300);  // although speed was set on initialization, reset it for consistent speed of all notes, that means music note can accelerate on the middle.
+            music_note->speed = INIT_MUSIC_NOTE_SPEED + (frame_counter / 500);  // although speed was set on initialization, reset it for consistent speed of all notes, that means music note can accelerate on the middle.
             music_note->y += music_note->speed;
         }
 
