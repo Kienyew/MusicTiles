@@ -20,7 +20,7 @@
 #define MUSIC_NOTE_HEIGHT                                                                120
 #define MUSIC_NOTE_INIT_COLOR                                                       DARKGRAY
 #define MUSIC_NOTE_AREA                                 MUSIC_NOTE_WIDTH * MUSIC_NOTE_HEIGHT
-#define INIT_MUSIC_NOTE_SPEED                                                              5
+#define INIT_MUSIC_NOTE_SPEED                                                              7
 
 #define TOUCH_BLOCK_WIDTH                                                         LINE_WIDTH
 #define TOUCH_BLOCK_HEIGHT                                                                40
@@ -130,6 +130,7 @@ static List music_note_lists[LINE]               = { 0 };
 static List frame_registrations                  = { 0 };
 static List animation_texts                      = { 0 };
 
+static unsigned int next_music_note_frame        = 1;
 static unsigned int frame_counter                = 0;
 static int score                                 = 0;
 static int miss                                  = 0;
@@ -315,15 +316,16 @@ static void initGame()
 void updateGame()
 {
     // push a new music node
-    if (frame_counter % 20 == 0)
+    if (frame_counter >= next_music_note_frame)
     {
+        next_music_note_frame = frame_counter + GetRandomValue(10, MAX(10, 45 - frame_counter / 500));
         int line = GetRandomValue(0, LINE - 1);
         MusicNote music_note = {
             .x      = LEFT_MARGIN + (line*LINE_WIDTH) + (line*MARGIN_BETWEEN_LINE), 
             .y      = -MUSIC_NOTE_HEIGHT,
             .width  = MUSIC_NOTE_WIDTH,
             .height = MUSIC_NOTE_HEIGHT,
-            .speed  = INIT_MUSIC_NOTE_SPEED + (frame_counter / 500),
+            .speed  = INIT_MUSIC_NOTE_SPEED + (frame_counter / 3000),
             .color  = MUSIC_NOTE_INIT_COLOR
         };
         list_append_tail(&music_note_lists[line], &music_note, sizeof(MusicNote));
@@ -331,17 +333,17 @@ void updateGame()
 
     // missed music nodes (exceed screen height)
     for (int line = 0; line < LINE; ++line)
-        for (ListNode* node = music_note_lists[line].head; node != NULL; node = node->prev)
+    for (ListNode* node = music_note_lists[line].head; node != NULL; node = node->prev)
+    {
+        MusicNote* music_note = ((MusicNote*)node->data);
+        if (music_note->y > SCREEN_HEIGHT)
         {
-            MusicNote* music_note = ((MusicNote*)node->data);
-            if (music_note->y > SCREEN_HEIGHT)
-            {
-                register_animate_text(frame_counter + 1, "Missed", UI_FONT_SIZE, UI_FONT_COLOR, music_note->x, SCREEN_HEIGHT - UI_FONT_SIZE);
-                free(list_pop_node(&music_note_lists[line], node));
-                miss += 1;
-                break;
-            }
+            register_animate_text(frame_counter + 1, "Missed", UI_FONT_SIZE, UI_FONT_COLOR, music_note->x, SCREEN_HEIGHT - UI_FONT_SIZE);
+            free(list_pop_node(&music_note_lists[line], node));
+            miss += 1;
+            break;
         }
+    }
 
     // player pressed touch block
     for (int line = 0; line < LINE; ++line)
@@ -398,14 +400,12 @@ void updateGame()
         }
     }
 
-    // music nodes movement
+    // music notes movement
     for (int line = 0; line < LINE; ++line)
-        for (ListNode* node = music_note_lists[line].head; node != NULL; node = node->prev)
-        {
-            MusicNote* music_note = ((MusicNote*)node->data);
-            music_note->speed = INIT_MUSIC_NOTE_SPEED + (frame_counter / 500);  // although speed was set on initialization, reset it for consistent speed of all notes, that means music note can accelerate on the middle.
-            music_note->y += music_note->speed;
-        }
+    for (ListNode* node = music_note_lists[line].head; node != NULL; node = node->prev)
+    {
+        ((MusicNote*)node->data)->y += ((MusicNote*)node->data)->speed + INIT_MUSIC_NOTE_SPEED + (frame_counter / 3000);
+    }
 
     // resolve previously registered functions at frame N
     for (ListNode* node = frame_registrations.head; node != NULL; )
