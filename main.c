@@ -6,10 +6,12 @@
 #include <assert.h>  /* assert() */
 #include <math.h>    /* fabsf(), cos(), sin() */
 
+#include "sound.h"
+
 // ------ DEFINITIONS ------
-#define WINDOW_TITLE                                                          "节奏大师 仿制"
+#define WINDOW_TITLE                                                            "节奏大师 仿制"
 #define SCREEN_WIDTH                                                                     800
-#define SCREEN_HEIGHT                                                                    500
+#define SCREEN_HEIGHT                                                                    800
 
 #define LINE                                                                               4
 #define LINE_WIDTH                                                                       100
@@ -17,7 +19,7 @@
 #define MARGIN_BETWEEN_LINE                                                               10
 
 #define MUSIC_NOTE_WIDTH                                                          LINE_WIDTH
-#define MUSIC_NOTE_HEIGHT                                                                120
+#define MUSIC_NOTE_HEIGHT                                                                160
 #define MUSIC_NOTE_INIT_COLOR                                                       DARKGRAY
 #define MUSIC_NOTE_AREA                                 MUSIC_NOTE_WIDTH * MUSIC_NOTE_HEIGHT
 #define INIT_MUSIC_NOTE_SPEED                                                              7
@@ -318,7 +320,7 @@ void updateGame()
     // push a new music node
     if (frame_counter >= next_music_note_frame)
     {
-        next_music_note_frame = frame_counter + GetRandomValue(10, MAX(10, 45 - frame_counter / 500));
+        next_music_note_frame = frame_counter + GetRandomValue(10, MAX(10, 30 - frame_counter / 500));
         int line = GetRandomValue(0, LINE - 1);
         MusicNote music_note = {
             .x      = LEFT_MARGIN + (line*LINE_WIDTH) + (line*MARGIN_BETWEEN_LINE), 
@@ -352,7 +354,7 @@ void updateGame()
         if (IsKeyPressed(touch_blocks[line].key))
         {
 
-            touch_blocks[line].color = TOUCH_BLOCK_MISTOUCH_COLOR;
+            bool touch_success = false;
             for (ListNode* node = music_note_lists[line].head; node != NULL; node = node->prev)
             {
                 MusicNote* music_note = (MusicNote*)node->data;
@@ -371,6 +373,7 @@ void updateGame()
                 float intersect_area = rect_intersect_area(touch_rect, music_note_rect);
                 if (intersect_area / MIN(TOUCH_BLOCK_AREA, MUSIC_NOTE_AREA) >= TOUCH_BLOCK_PERFECT_TOLERANCE)
                 {
+                    touch_success = true;
                     free(list_pop_node(&music_note_lists[line], node));
                     touch_blocks[line].color = TOUCH_BLOCK_PERFECT_COLOR;
                     score += 5;
@@ -378,6 +381,7 @@ void updateGame()
                 } 
                 else if (intersect_area / MIN(TOUCH_BLOCK_AREA, MUSIC_NOTE_AREA) >= TOUCH_BLOCK_OK_TOLERANCE) 
                 {
+                    touch_success = true;
                     free(list_pop_node(&music_note_lists[line], node));
                     touch_blocks[line].color = TOUCH_BLOCK_OK_COLOR;
                     score += 3;
@@ -385,6 +389,7 @@ void updateGame()
                 }
                 else if (intersect_area / MIN(TOUCH_BLOCK_AREA, MUSIC_NOTE_AREA) >= TOUCH_BLOCK_BAD_TOLERANCE) 
                 {
+                    touch_success = true;
                     free(list_pop_node(&music_note_lists[line], node));
                     touch_blocks[line].color = TOUCH_BLOCK_BAD_COLOR;
                     score += 1;
@@ -392,9 +397,16 @@ void updateGame()
                 }
                 else
                 {
+                    touch_success = false;
                     break;
                 }
             }
+
+            if (!touch_success)
+                touch_blocks[line].color = TOUCH_BLOCK_MISTOUCH_COLOR;
+            else
+                PlayPianoNote((PianoNote)GetRandomValue(DO, LA));
+
             __frame_register_set_touch_block_color_t _data = { .touch_block = &touch_blocks[line], .color = TOUCH_BLOCK_INIT_COLOR };
             register_at_frame(frame_counter + TOUCH_BLOCK_ACTIVE_DURATION, __frame_register_set_touch_block_color, (void*)&_data, sizeof(__frame_register_set_touch_block_color_t));
         }
@@ -510,6 +522,7 @@ void endGame()
 
 int main()
 {
+    InitAudioDevice();
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, WINDOW_TITLE);
     SetTargetFPS(60);
     initGame();
