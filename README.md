@@ -1,2 +1,4 @@
-# Music Tiles - A Piano Tiles like simple desktop game created using https://github.com/raysan5/raylib/
+# Music Tiles
+A simple Piano Tiles like desktop game created using [raylib](https://github.com/raysan5/raylib/).
 
+![screenshot](screenshot.png)
