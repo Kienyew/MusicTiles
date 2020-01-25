@@ -532,5 +532,6 @@ int main()
     }
     endGame();
     CloseWindow();
+    CloseAudioDevice();
     return EXIT_SUCCESS;
 }
