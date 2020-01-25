@@ -9,7 +9,7 @@
 #include "sound.h"
 
 // ------ DEFINITIONS ------
-#define WINDOW_TITLE                                                            "节奏大师 仿制"
+#define WINDOW_TITLE                                                           "Music Tiles"
 #define SCREEN_WIDTH                                                                     800
 #define SCREEN_HEIGHT                                                                    800
 
@@ -38,7 +38,6 @@
 #define TOUCH_BLOCK_OK_COLOR                                                         SKYBLUE
 #define TOUCH_BLOCK_BAD_COLOR                                                         ORANGE
 #define TOUCH_BLOCK_MISTOUCH_COLOR                                                       RED
-#define TOUCH_BLOCK_ACTIVE_DURATION                                                       10
 
 #define SIDE_LINE_COLOR                                                            LIGHTGRAY
 #define SIDE_LINE_WIDTH                                                                    1
@@ -408,7 +407,7 @@ void updateGame()
                 PlayPianoNote((PianoNote)GetRandomValue(DO, LA));
 
             __frame_register_set_touch_block_color_t _data = { .touch_block = &touch_blocks[line], .color = TOUCH_BLOCK_INIT_COLOR };
-            register_at_frame(frame_counter + TOUCH_BLOCK_ACTIVE_DURATION, __frame_register_set_touch_block_color, (void*)&_data, sizeof(__frame_register_set_touch_block_color_t));
+            register_at_frame(frame_counter + 10, __frame_register_set_touch_block_color, (void*)&_data, sizeof(__frame_register_set_touch_block_color_t));
         }
     }
 
