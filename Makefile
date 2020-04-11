@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -g -Wall -I.
 LDFLAGS = -lpthread -lm -lX11 -ldl
-RAYLIB_HEADERS = raylib.h physac.h raudio.h raymath.h rlgl.h
+RAYLIB_HEADERS = raylib.h
 OBJECTS = sound.o
 
 
