@@ -2,7 +2,7 @@ CC = gcc
 CFLAGS = -g -Wall -I.
 LDFLAGS = -lpthread -lm -lX11 -ldl
 RAYLIB_HEADERS = raylib.h
-OBJECTS = sound.o
+OBJECTS = sound.o list.o
 
 
 main: main.c $(RAYLIB_HEADERS) $(OBJECTS)
