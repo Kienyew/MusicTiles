@@ -1,4 +1,6 @@
 #ifndef __H_LIST
+#define __H_LIST
+
 #include <stddef.h>
 
 typedef struct List
