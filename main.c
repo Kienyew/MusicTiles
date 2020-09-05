@@ -63,9 +63,9 @@
 #define MIN(a, b) (((a) < (b)) ? (a) : (b))
 // ------ END MACROS ------
 
+
+
 // ------ STRUCTURES ------
-
-
 typedef struct MusicNote
 {
 	float x;
@@ -101,17 +101,7 @@ typedef struct TextBox
 	char* text;
 	Color fontcolor;
 } TextBox;
-
 // ------ END STRUCTURES ------
-
-
-
-// ------ FUNCTION DECLARATIONS ------
-static void initGame();
-static void updateGame();
-static void drawGame();
-static void endGame();
-// ------ END FUNCTION DECLARATIONS ------
 
 
 
@@ -128,8 +118,9 @@ static List animation_texts = { 0 };
 static unsigned int frame_counter = 0;
 static int score = 0;
 static int miss = 0;
-
 // ------ END GLOBAL VARIABLES ------
+
+
 
 ListNode * find_highest_music_note()
 {
@@ -165,6 +156,7 @@ float rect_intersect_area(Rectangle a, Rectangle b)
 
 
 // data will be copied
+// run a function at a future point of frame
 // RETURN: true if registration successful else false
 static bool register_at_frame(unsigned int frame, void(*f)(void*), void* data, size_t data_size)
 {
@@ -184,9 +176,8 @@ typedef struct {
 	TouchBlock* touch_block;
 	Color color;
 } __frame_register_set_touch_block_color_t;
-void __frame_register_set_touch_block_color(void* _data)
+void __frame_register_set_touch_block_color(__frame_register_set_touch_block_color_t* data)
 {
-	__frame_register_set_touch_block_color_t* data = (__frame_register_set_touch_block_color_t*)_data;
 	data->touch_block->color = data->color;
 }
 
@@ -195,9 +186,8 @@ typedef struct {
 	float dx;
 	float dy;
 } __frame_register_animate_text_t;
-void __frame_register_animate_text(void* _data)
+void __frame_register_animate_text(__frame_register_animate_text_t* data)
 {
-	__frame_register_animate_text_t* data = (__frame_register_animate_text_t*)_data;
 	data->textbox->x += data->dx;
 	data->textbox->y += data->dy;
 }
@@ -205,9 +195,8 @@ void __frame_register_animate_text(void* _data)
 typedef struct {
 	ListNode* node;
 } __frame_register_drop_animate_text_t;
-void __frame_register_drop_animate_text(void* _data)
+void __frame_register_drop_animate_text(__frame_register_drop_animate_text_t* data)
 {
-	__frame_register_drop_animate_text_t* data = (__frame_register_drop_animate_text_t*)_data;
 	TextBox* textbox = (TextBox*)list_pop_node(&animation_texts, data->node);
 	free(textbox->text);
 	free(textbox);
@@ -225,7 +214,6 @@ void register_animate_text(unsigned int frame, const char* text, int fontsize, C
 
 	list_append_tail(&animation_texts, &textbox, sizeof(TextBox));
 
-	// TODO: better animation
 	float radians = randf(PI / 2 - PI / 6, PI / 2 + PI / 6);  // 60 ~ 120 degrees
 	for (int i = 0; i < ANIMATE_TEXT_DURATION; ++i)
 	{
@@ -234,11 +222,11 @@ void register_animate_text(unsigned int frame, const char* text, int fontsize, C
 			.dx = -2 * cosf(radians),
 			.dy = -2 * sinf(radians)
 		};
-		register_at_frame(frame + i, __frame_register_animate_text, &data, sizeof(__frame_register_animate_text_t));
+		register_at_frame(frame + i, (void(*)(void*))__frame_register_animate_text, &data, sizeof(__frame_register_animate_text_t));
 	}
 
 	__frame_register_drop_animate_text_t _data = { .node = animation_texts.tail };
-	register_at_frame(frame + ANIMATE_TEXT_DURATION, __frame_register_drop_animate_text, &_data, sizeof(__frame_register_drop_animate_text_t));
+	register_at_frame(frame + ANIMATE_TEXT_DURATION, (void(*)(void*))__frame_register_drop_animate_text, &_data, sizeof(__frame_register_drop_animate_text_t));
 }
 
 static void initGame()
@@ -290,10 +278,8 @@ void updateGame()
 	// player pressed touch block
 	for (int line = 0; line < LINE; ++line)
 	{
-
 		if (IsKeyPressed(touch_blocks[line].key))
 		{
-
 			bool touch_success = false;
 			for (ListNode* node = music_note_lists[line].head; node != NULL; node = node->prev)
 			{
@@ -348,7 +334,7 @@ void updateGame()
 				PlayPianoNote((PianoNote)GetRandomValue(DO, LA));
 
 			__frame_register_set_touch_block_color_t _data = { .touch_block = &touch_blocks[line],.color = TOUCH_BLOCK_INIT_COLOR };
-			register_at_frame(frame_counter + 10, __frame_register_set_touch_block_color, (void*)& _data, sizeof(__frame_register_set_touch_block_color_t));
+			register_at_frame(frame_counter + 10, (void(*)(void*))__frame_register_set_touch_block_color, (void*)& _data, sizeof(__frame_register_set_touch_block_color_t));
 		}
 	}
 
@@ -359,7 +345,7 @@ void updateGame()
 			((MusicNote*)node->data)->y += ((MusicNote*)node->data)->speed + INIT_MUSIC_NOTE_SPEED + (frame_counter / 3000);
 		}
 
-	// resolve previously registered functions at frame N
+	// run previously registered functions
 	for (ListNode* node = frame_registrations.head; node != NULL; )
 	{
 		FrameRegistration* registration = (FrameRegistration*)node->data;
