@@ -247,7 +247,7 @@ void updateGame()
 {
 	// push a new music node
 	ListNode* highest_node = find_highest_music_note();
-	if (highest_node == NULL || ((MusicNote*)highest_node->data)->y > 0)
+	while (highest_node == NULL || ((MusicNote*)highest_node->data)->y >= -MUSIC_NOTE_HEIGHT)
 	{
 		int line = GetRandomValue(0, LINE - 1);
 		MusicNote music_note = {
@@ -259,6 +259,7 @@ void updateGame()
 			.color = MUSIC_NOTE_INIT_COLOR
 		};
 		list_append_tail(&music_note_lists[line], &music_note, sizeof(MusicNote));
+        highest_node = music_note_lists[line].tail;
 	}
 
 	// missed music nodes (exceed screen height)
