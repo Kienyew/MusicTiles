@@ -12,3 +12,5 @@ cd build
 cmake ..
 make
 ```
+
+Make sure to stick the executable file in the same directory with the `audio` directory :)
