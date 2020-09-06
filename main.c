@@ -1,4 +1,5 @@
 #include "raylib.h"
+#include <stdio.h>   /* sprintf() */
 #include <stdbool.h> /* bool */
 #include <stddef.h>  /* size_t */
 #include <stdlib.h>  /* malloc(), calloc() */
@@ -29,7 +30,7 @@
 #define MUSIC_NOTE_HEIGHT                                                                160
 #define MUSIC_NOTE_INIT_COLOR                                                       DARKGRAY
 #define MUSIC_NOTE_AREA                                 MUSIC_NOTE_WIDTH * MUSIC_NOTE_HEIGHT
-#define INIT_MUSIC_NOTE_SPEED                                                              7
+#define INIT_MUSIC_NOTE_SPEED                                                              5
 
 #define TOUCH_BLOCK_WIDTH                                                         LINE_WIDTH
 #define TOUCH_BLOCK_HEIGHT                                                                40
@@ -49,8 +50,12 @@
 #define SIDE_LINE_COLOR                                                            LIGHTGRAY
 #define SIDE_LINE_WIDTH                                                                    1
 
+#define UI_FONT_COLOR                                                              LIGHTGRAY
 #define UI_FONT_SIZE                                                                      20
-#define UI_FONT_COLOR                                                               DARKGRAY
+#define MISSED_FONT_COLOR                                                           DARKGRAY
+#define MISSED_FONT_SIZE                                                                  20
+#define SCORE_FONT_COLOR                                                                GRAY
+#define SCORE_FONT_SIZE                                                                   22
 
 #define UI_MARGIN                                                                          5
 #define ANIMATE_TEXT_DURATION                                                             30
@@ -143,7 +148,7 @@ ListNode * find_highest_music_note()
 
 float randf(float min, float max)
 {
-	return (min + ((float)GetRandomValue(0, INT_MAX) / INT_MAX) * (max - min));
+	return (min + ((float)GetRandomValue(0, INT_MAX) / (float)INT_MAX) * (max - min));
 }
 
 float rect_intersect_area(Rectangle a, Rectangle b)
@@ -269,7 +274,7 @@ void updateGame()
 			MusicNote* music_note = ((MusicNote*)node->data);
 			if (music_note->y > SCREEN_HEIGHT)
 			{
-				register_animate_text(frame_counter + 1, "Missed", UI_FONT_SIZE, UI_FONT_COLOR, music_note->x, SCREEN_HEIGHT - UI_FONT_SIZE);
+				register_animate_text(frame_counter + 1, "Missed", MISSED_FONT_SIZE, MISSED_FONT_COLOR, music_note->x, SCREEN_HEIGHT - MISSED_FONT_SIZE);
 				free(list_pop_node(&music_note_lists[line], node));
 				miss += 1;
 				break;
@@ -282,6 +287,7 @@ void updateGame()
 		if (IsKeyPressed(touch_blocks[line].key))
 		{
 			bool touch_success = false;
+            int score_increment = 0;
 			for (ListNode* node = music_note_lists[line].head; node != NULL; node = node->prev)
 			{
 				MusicNote* music_note = (MusicNote*)node->data;
@@ -303,7 +309,7 @@ void updateGame()
 					touch_success = true;
 					free(list_pop_node(&music_note_lists[line], node));
 					touch_blocks[line].color = TOUCH_BLOCK_PERFECT_COLOR;
-					score += 5;
+                    score_increment = 5;
 					break;
 				}
 				else if (intersect_area / MIN(TOUCH_BLOCK_AREA, MUSIC_NOTE_AREA) >= TOUCH_BLOCK_OK_TOLERANCE)
@@ -311,7 +317,7 @@ void updateGame()
 					touch_success = true;
 					free(list_pop_node(&music_note_lists[line], node));
 					touch_blocks[line].color = TOUCH_BLOCK_OK_COLOR;
-					score += 3;
+                    score_increment = 3;
 					break;
 				}
 				else if (intersect_area / MIN(TOUCH_BLOCK_AREA, MUSIC_NOTE_AREA) >= TOUCH_BLOCK_BAD_TOLERANCE)
@@ -319,7 +325,7 @@ void updateGame()
 					touch_success = true;
 					free(list_pop_node(&music_note_lists[line], node));
 					touch_blocks[line].color = TOUCH_BLOCK_BAD_COLOR;
-					score += 1;
+                    score_increment = 1;
 					break;
 				}
 				else
@@ -329,10 +335,15 @@ void updateGame()
 				}
 			}
 
-			if (!touch_success)
-				touch_blocks[line].color = TOUCH_BLOCK_MISTOUCH_COLOR;
-			else
+
+            if (touch_success) {
+                char buffer[16];
 				PlayPianoNote((PianoNote)GetRandomValue(DO, LA));
+                sprintf(buffer, "+%d", score_increment);
+                register_animate_text(frame_counter + 1, buffer, SCORE_FONT_SIZE, SCORE_FONT_COLOR, touch_blocks[line].x, touch_blocks[line].y);
+            } else {
+				touch_blocks[line].color = TOUCH_BLOCK_MISTOUCH_COLOR;
+            }
 
 			__frame_register_set_touch_block_color_t _data = { .touch_block = &touch_blocks[line],.color = TOUCH_BLOCK_INIT_COLOR };
 			register_at_frame(frame_counter + 10, (void(*)(void*))__frame_register_set_touch_block_color, (void*)& _data, sizeof(__frame_register_set_touch_block_color_t));
@@ -430,7 +441,7 @@ void drawGame()
 
 	// --- text of upper-left corner ---
 	DrawText(TextFormat("SCORE: %d", score), UI_MARGIN, UI_MARGIN, UI_FONT_SIZE, LIGHTGRAY);
-	DrawText(TextFormat("MISS: %d", miss), UI_MARGIN, UI_MARGIN + UI_FONT_SIZE, UI_FONT_SIZE, LIGHTGRAY);
+	DrawText(TextFormat("MISS: %d", miss), UI_MARGIN, UI_MARGIN + UI_FONT_SIZE, UI_FONT_SIZE, UI_FONT_COLOR);
 
 	EndDrawing();
 }
