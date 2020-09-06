@@ -448,7 +448,7 @@ void drawGame()
 	// --- text of upper-left corner ---
 	DrawText(TextFormat("SCORE: %d", score), UI_MARGIN, UI_MARGIN, UI_FONT_SIZE, LIGHTGRAY);
 	DrawText(TextFormat("MISS: %d", miss), UI_MARGIN, UI_MARGIN + UI_FONT_SIZE, UI_FONT_SIZE, UI_FONT_COLOR);
-	DrawText(TextFormat("SPEED: %.1f", speed_now()), UI_MARGIN, UI_MARGIN * 2 + UI_FONT_SIZE * 2, UI_FONT_SIZE, UI_FONT_COLOR);
+	DrawText(TextFormat("SPEED: %.1f", speed_now()), UI_MARGIN, UI_MARGIN + UI_FONT_SIZE * 2, UI_FONT_SIZE, UI_FONT_COLOR);
 
 	EndDrawing();
 }
