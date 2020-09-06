@@ -159,6 +159,12 @@ float rect_intersect_area(Rectangle a, Rectangle b)
 		return fabsf((MAX(a.x, b.x) - MIN(a.x + a.width, b.x + b.width)) * (MAX(a.y, b.y) - MIN(a.y + a.height, b.y + b.height)));
 }
 
+// get the music note drop speed now
+float speed_now()
+{
+    return INIT_MUSIC_NOTE_SPEED + (frame_counter / 3000.0f);
+}
+
 
 // data will be copied
 // run a function at a future point of frame
@@ -260,7 +266,7 @@ void updateGame()
 			.y = (highest_node == NULL) ? -MUSIC_NOTE_HEIGHT : ((MusicNote*)highest_node->data)->y - MUSIC_NOTE_HEIGHT,
 			.width = MUSIC_NOTE_WIDTH,
 			.height = MUSIC_NOTE_HEIGHT,
-			.speed = INIT_MUSIC_NOTE_SPEED + (frame_counter / 3000),
+			.speed = speed_now(),
 			.color = MUSIC_NOTE_INIT_COLOR
 		};
 		list_append_tail(&music_note_lists[line], &music_note, sizeof(MusicNote));
@@ -442,6 +448,7 @@ void drawGame()
 	// --- text of upper-left corner ---
 	DrawText(TextFormat("SCORE: %d", score), UI_MARGIN, UI_MARGIN, UI_FONT_SIZE, LIGHTGRAY);
 	DrawText(TextFormat("MISS: %d", miss), UI_MARGIN, UI_MARGIN + UI_FONT_SIZE, UI_FONT_SIZE, UI_FONT_COLOR);
+	DrawText(TextFormat("SPEED: %.1f", speed_now()), UI_MARGIN, UI_MARGIN * 2 + UI_FONT_SIZE * 2, UI_FONT_SIZE, UI_FONT_COLOR);
 
 	EndDrawing();
 }
