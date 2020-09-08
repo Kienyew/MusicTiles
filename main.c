@@ -346,6 +346,7 @@ void updateGame()
                 char buffer[16];
 				PlayPianoNote((PianoNote)GetRandomValue(DO, LA));
                 sprintf(buffer, "+%d", score_increment);
+                score += score_increment;
                 register_animate_text(frame_counter + 1, buffer, SCORE_FONT_SIZE, SCORE_FONT_COLOR, touch_blocks[line].x, touch_blocks[line].y);
             } else {
 				touch_blocks[line].color = TOUCH_BLOCK_MISTOUCH_COLOR;
