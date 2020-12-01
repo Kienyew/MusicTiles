@@ -1,0 +1,8 @@
+g4 b4 g4 f4 d#4 g4 f4 d#4 f4 f4 f4 f4 g4 f4 d#4 g4
+b4 c5 g4 f4 d#4 g4 f4 f4 d#4 c4 d#4 f4 f4 d#4 f4 f4
+d#4 g4 g4 g4 b4 g4 d#4 f4 d#4 g4 f4 d#4 f4 f4 f4 f4
+f4 g4 f4 d#4 g4 g4 b4 c5 f4 d#4 g4 f4 f4 d#4 c4 d#4
+f4 f4 d#4 f4 f4 d#4 g4 f4 g4 g#4 g#4 g#4 g#4 g4 f4 d#4
+d#4 f4 g4 f4 f4 g4 g#4 g#4 g#4 g#4 g4 f4 d#4 g4 f4 f4
+g4 g#4 g#4 g#4 g#4 g4 f4 d#4 d#4 f4 g4 f4 f4 g4 g#4 g4
+g#4 b4 g#4 b4 c5 f4 d#4 f4 d#4

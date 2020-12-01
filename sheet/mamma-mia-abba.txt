@@ -1,0 +1,11 @@
+a4 d5 c#5 d5 e5 f#5 d5 d5 c#5 d5 c#5 b4 d5 d5 e5 d5
+d5 d5 g5 g5 f#5 d5 d5 a4 d5 c#5 d5 e5 f#5 d5 d5 c#5
+d5 c#5 b4 a4 b4 d5 f#5 f#5 e5 f#5 e5 d5 a4 b4 d5 f#5
+f#5 e5 g5 f#5 d5 e5 f#5 e5 d5 f#5 f#5 f#5 e5 d5 e5 f#5
+a4 g5 f#5 e5 a4 a4 a4 a4 a4 a4 a4 g5 f#5 e5 a4 a4
+a4 a4 a4 a4 a4 f#5 d5 e5 d5 e5 d5 e5 d5 d5 d5 e5
+f#5 e5 d5 e5 d5 g5 g5 g5 g5 f#5 d5 e5 d5 e5 d5 d5
+d5 e5 f#5 e5 d5 e5 d5 g5 g5 g5 g5 f#5 d5 a5 a5 a5
+a5 e5 f#5 g5 f#5 f#5 f#5 f#5 c#5 d5 e5 e5 d5 g5 g5 f#5
+d5 e5 d5 e5 d5 e5 d5 e5 d5 d5 d5 e5 f#5 e5 d5 e5
+d5 g5 g5 f#5 d5 e5 d5 e5 d5

@@ -31,11 +31,10 @@ endif()
 
 # This is the main part:
 
-add_executable(${PROJECT_NAME} main.c list.c sound.c)
+add_subdirectory(src)
 set(raylib_VERBOSE 1)
-target_link_libraries(${PROJECT_NAME} raylib)
-target_link_libraries(${PROJECT_NAME} m)
 
 # Copy audio directory to build directory
-file(COPY ${CMAKE_SOURCE_DIR}/audio DESTINATION ${CMAKE_BINARY_DIR})
+file(COPY ${CMAKE_SOURCE_DIR}/audio DESTINATION ${CMAKE_BINARY_DIR}/release)
+file(COPY ${CMAKE_SOURCE_DIR}/sheet DESTINATION ${CMAKE_BINARY_DIR}/release)
 

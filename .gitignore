@@ -3,3 +3,5 @@
 **/*.o
 main
 build/*
+*/a.out
+**/__pycache__

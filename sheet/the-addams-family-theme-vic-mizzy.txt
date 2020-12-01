@@ -1,0 +1,6 @@
+f4 b4 d5 b4 g4 e4 c5 g#4 a4 c5 a4 f4 d4 b4 f4 b4
+d5 b4 g4 e4 c5 b4 a4 f4 g4 a4 b4 f4 b4 d5 b4 g4
+e4 c5 g#4 a4 c5 a4 f4 d4 b4 f4 b4 d5 b4 g4 e4 c5
+b4 a4 f4 g4 a4 b4 f4 b4 d5 b4 g4 e4 c5 g#4 a4 c5
+a4 f4 d4 b4 f4 b4 d5 b4 g4 e4 c5 b4 a4 f4 g4 a4
+b4

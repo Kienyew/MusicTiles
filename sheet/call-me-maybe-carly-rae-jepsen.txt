@@ -1,0 +1,10 @@
+b4 b4 b4 b4 b4 a4 b4 b4 b4 b4 b4 b4 a4 b4 b4 b4
+b4 b4 b4 a4 a4 a4 a4 g4 g4 d5 b4 b4 b4 b4 b4 b4
+a4 b4 b4 b4 b4 b4 b4 a4 b4 b4 b4 b4 b4 b4 a4 a4
+a4 a4 g4 g4 d5 b4 d5 d5 b4 a4 g4 d5 d5 d5 b4 a4
+g4 d5 d5 d5 b4 a4 g4 g4 g4 g4 g4 g4 g4 a4 b4 g5
+b4 d5 g5 d5 b4 b4 d5 b5 g5 g5 b5 c6 b5 g5 g5 b5
+a5 a5 g5 g5 b4 d5 g5 d5 b4 d5 b5 g5 g5 b5 c6 b5
+g5 g5 b5 a5 a5 g5 g5 b4 d5 g5 d5 b5 b5 d5 b5 g5
+g5 b5 c6 b5 g5 g5 b5 a5 a5 g5 g5 b4 d5 g5 g5 d5
+b5 d5 b5 g5 g5 b5 c6 b5 g5 g5 b5 a5 a5 g5

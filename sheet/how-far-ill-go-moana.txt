@@ -1,0 +1,20 @@
+d4 a3 d4 a3 d4 a3 d4 d4 d4 e4 b3 e4 d4 e4 d4 e4
+f#4 f#4 f#4 f#4 f#4 e4 d4 b3 b3 d4 a3 d4 a3 d4 a3 d4
+b3 e4 b3 e4 d4 e4 e4 d4 e4 f#4 f#4 a3 e4 f#4 f#4 f#4
+d4 d4 b3 a3 b3 d4 d4 b3 a3 b3 d4 d4 b3 a3 b3 e4
+e4 b3 a3 b3 e4 e4 d4 d4 d4 f#4 f#4 d4 d4 d4 f#4 f#4
+e4 f#4 g4 d4 b3 d4 e4 f#4 d4 e4 f#4 d4 e4 f#4 d4 a4
+e4 c#4 a4 b4 f#4 e4 d4 a4 b4 f#4 e4 d4 e4 f#4 d4 e4
+f#4 d4 e4 f#4 d4 d4 a4 e4 c#4 a4 b4 f#4 e4 d4 e4 g4
+d4 d4 b3 b3 a3 a3 a3 d4 d4 d4 a3 d4 b3 d4 b3 d4
+b3 e4 b3 e4 b3 e4 d4 e4 d4 f#4 f#4 f#4 f#4 f#4 f#4 f#4
+d4 b3 d4 a3 d4 b3 d4 b3 d4 b3 e4 b3 e4 b3 e4 d4
+e4 f#4 f#4 d4 f#4 f#4 f#4 f#4 f#4 d4 b3 b3 a3 b3 d4 d4
+b3 a3 b3 d4 d4 b3 a3 a4 f#4 e4 b3 a3 b3 e4 e4 d4
+d4 d4 f#4 f#4 d4 b3 d4 f#4 f#4 e4 f#4 g4 e4 b4 d4 e4
+f#4 d4 e4 f#4 d4 e4 f#4 d4 a4 e4 c#4 a4 b4 f#4 e4 d4
+a4 b4 f#4 e4 d4 e4 f#4 d4 e4 f#4 f#4 d4 e4 f#4 d4 d4
+a4 e4 c#4 a4 b4 f#4 e4 d4 e4 f#4 d4 d4 d4 e4 f#4 d4
+d4 d#4 f4 g4 d#4 f4 g4 d#4 f4 g4 d#4 b4 f4 d4 b4 c5
+g4 f4 d#4 b4 c5 g4 f4 d#4 f4 g4 d#4 f4 g4 d#4 f4 g4
+d#4 d#4 b4 f4 d4 b4 c5 g4 f4 b3 b3 b4 b4

@@ -1,0 +1,16 @@
+d#4 c#4 d#4 f4 f4 g#3 f4 d#4 c#4 d#4 f4 g#4 b4 f4 g#4 f#4
+f4 g#4 d#4 f4 f#4 g#4 f#4 f4 g#4 d#4 d#4 c#4 d#4 f4 f4 g#3
+f4 d#4 c#4 d#4 f4 g#4 b4 f4 g#4 f#4 f4 g#4 d#4 f4 f#4 g#4
+f#4 f4 g#4 d#4 d#5 d#5 d#5 c#4 f4 g#4 b4 b4 b4 c4 c#5 c5
+b4 g#4 c#4 f4 g#4 f4 g#4 d#5 d#5 d#5 c#4 f4 g#4 b4 b4 b4
+c4 f4 f#4 g#4 g#4 g#4 f#4 c#4 b3 g#3 d#4 f4 g#4 f4 d#4 c#4
+d#4 c#4 d#4 f4 f4 g#3 d#4 c#4 d#4 f4 g#4 b4 f4 g#4 f#4 f4
+g#4 d#4 f4 f#4 g#4 f#4 f4 g#4 d#4 d#4 c#4 d#4 f4 f4 g#3 f4
+d#4 c#4 d#4 f4 g#4 b4 f4 g#4 f#4 f4 g#4 d#4 f4 f#4 g#4 f#4
+f4 g#4 d#4 g#4 d#5 d#5 d#5 c#4 f4 g#4 b4 b4 b4 c4 c#5 c5
+b4 g#4 c#4 f4 g#4 f4 g#4 d#5 d#5 d#5 c#4 f4 g#4 b4 b4 b4
+c4 f4 f#4 g#4 g#4 g#4 f#4 c#4 b3 g#3 d#4 d#4 d#4 f4 g#4 f4
+d#4 c#4 d#5 d#5 d#5 c#4 f4 g#4 b4 b4 b4 c4 c#5 c5 b4 g#4
+c#4 f4 g#4 f4 g#4 d#5 d#5 d#5 c#4 f4 g#4 b4 b4 b4 c4 c#4
+g#4 g#4 f#4 f#4 c#5 b4 g#4 d#4 d#4 d#4 f4 g#4 f4 d#4 c#4 f4
+f#4 g#4 g#4 g#4 f#4 c#4 b4 g#4 d#4 d#4 d#4 f4 g#4 f4 d#4 c#4
