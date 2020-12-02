@@ -1,6 +1,8 @@
 # Music Tiles
 A simple Piano Tiles like desktop game created using [raylib](https://github.com/raysan5/raylib/). With 200 musics supported (see in `sheet` folder).
 
+![screenshot](https://user-images.githubusercontent.com/31496021/100824993-13622200-3492-11eb-897c-993f9f267194.gif)
+
 # Build
 1. Navigate to this project directory.
 2. Build with cmake (it needs to download raylib source from web so it might take some time).
