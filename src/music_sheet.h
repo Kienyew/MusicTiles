@@ -12,7 +12,7 @@ typedef struct MusicSheet {
 
 void LoadMusicSheetFromString(MusicSheet* sheet, const char* filename);
 void LoadMusicSheetFromFile(MusicSheet* sheet, const char* filename);
-void MusicSheetClear(MusicSheet* sheet);
+void MusicSheetFree(MusicSheet* sheet);
 void MusicSheetRewind(MusicSheet* sheet);
 bool MusicSheetEnded(MusicSheet* sheet);
 

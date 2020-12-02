@@ -53,11 +53,14 @@ void LoadMusicSheetFromFile(MusicSheet* sheet, const char* filename)
     fclose(file);
 
     LoadMusicSheetFromString(sheet, buffer);
+    free(buffer);
+
 }
 
-void MusicSheetClear(MusicSheet* sheet)
+void MusicSheetFree(MusicSheet* sheet)
 {
     list_clear(&sheet->notes, free);
+    free(sheet);
 }
 
 bool MusicSheetEnded(MusicSheet* sheet)

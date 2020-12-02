@@ -438,7 +438,7 @@ void EndGame()
         list_clear(&music_note_lists[line], free);
 
     list_clear(&animation_texts, (void (*)(void*))textbox_free);
-    list_clear(&music_sheets, (void (*)(void*))MusicSheetClear);
+    list_clear(&music_sheets, (void (*)(void*))MusicSheetFree);
 }
 
 int main(int argc, const char* argv[])
