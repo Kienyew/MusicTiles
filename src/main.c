@@ -30,7 +30,7 @@
 #define MUSIC_NOTE_HEIGHT 160
 #define MUSIC_NOTE_INIT_COLOR DARKGRAY
 #define MUSIC_NOTE_AREA MUSIC_NOTE_WIDTH* MUSIC_NOTE_HEIGHT
-#define INIT_MUSIC_NOTE_SPEED 6
+#define INIT_MUSIC_NOTE_SPEED 12
 
 #define TOUCH_BLOCK_WIDTH LINE_WIDTH
 #define TOUCH_BLOCK_HEIGHT 40
@@ -72,7 +72,6 @@ typedef struct MusicNote {
     float y;
     float width;
     float height;
-    float speed;
     Color color;
 } MusicNote;
 
@@ -260,7 +259,6 @@ void UpdateGame()
                                         : ((MusicNote*)highest_node->data)->y - MUSIC_NOTE_HEIGHT,
             .width = MUSIC_NOTE_WIDTH,
             .height = MUSIC_NOTE_HEIGHT,
-            .speed = speed_now(),
             .color = MUSIC_NOTE_INIT_COLOR };
         list_append_tail(&music_note_lists[line], &music_note, sizeof(MusicNote));
         highest_node = music_note_lists[line].tail;
@@ -349,7 +347,7 @@ void UpdateGame()
     // music notes movement
     for (int line = 0; line < LINE; ++line) {
         for (ListNode* node = music_note_lists[line].head; node != NULL; node = node->prev) {
-            ((MusicNote*)node->data)->y += ((MusicNote*)node->data)->speed + INIT_MUSIC_NOTE_SPEED + (frame_counter / 3000.0f);
+            ((MusicNote*)node->data)->y += speed_now();
         }
     }
 
