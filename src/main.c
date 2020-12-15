@@ -347,10 +347,11 @@ void UpdateGame()
     }
 
     // music notes movement
-    for (int line = 0; line < LINE; ++line)
+    for (int line = 0; line < LINE; ++line) {
         for (ListNode* node = music_note_lists[line].head; node != NULL; node = node->prev) {
             ((MusicNote*)node->data)->y += ((MusicNote*)node->data)->speed + INIT_MUSIC_NOTE_SPEED + (frame_counter / 3000.0f);
         }
+    }
 
     // run previously registered functions
     for (ListNode* node = frame_registrations.head; node != NULL;) {
