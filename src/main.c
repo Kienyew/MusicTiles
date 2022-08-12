@@ -1,12 +1,12 @@
 #include "raylib.h"
 #include <assert.h> /* assert() */
 #include <limits.h>
-#include <math.h>    /* fabsf(), cos(), sin() */
+#include <math.h> /* fabsf(), cos(), sin() */
 #include <stdbool.h> /* bool */
-#include <stddef.h>  /* size_t */
-#include <stdio.h>   /* sprintf() */
-#include <stdlib.h>  /* malloc(), calloc() */
-#include <string.h>  /* memcpy(), strdup()*/
+#include <stddef.h> /* size_t */
+#include <stdio.h> /* sprintf() */
+#include <stdlib.h> /* malloc(), calloc() */
+#include <string.h> /* memcpy(), strdup()*/
 
 #include "audio.h"
 #include "list.h"
@@ -67,6 +67,8 @@
 // ------ END MACROS ------
 
 // ------ STRUCTURES ------
+
+// the falling block.
 typedef struct MusicNote {
     float x;
     float y;
@@ -75,6 +77,7 @@ typedef struct MusicNote {
     Color color;
 } MusicNote;
 
+// the block with alphabet HJKL carved on it.
 typedef struct TouchBlock {
     float x;
     float y;
@@ -84,12 +87,14 @@ typedef struct TouchBlock {
     KeyboardKey key;
 } TouchBlock;
 
+// this is a callback, use to run a function at a future game frame.
 typedef struct FrameRegistration {
     void (*function)(void*);
     unsigned int frame;
     void* data;
 } FrameRegistration;
 
+// animatable text
 typedef struct TextBox {
     float x;
     float y;
@@ -116,6 +121,8 @@ static int score = 0;
 static int miss = 0;
 // ------ END GLOBAL VARIABLES ------
 
+// return the falling highest music note (near the top of window)
+// NULL if no music note on the screen
 ListNode* find_highest_music_note()
 {
     ListNode* minnode = NULL;
@@ -132,6 +139,7 @@ ListNode* find_highest_music_note()
     return minnode;
 }
 
+// return a random floating point number in [min, max]
 float randf(float min, float max)
 {
     return (min + ((float)GetRandomValue(0, INT_MAX) / (float)INT_MAX) * (max - min));
@@ -145,15 +153,15 @@ float rect_intersect_area(Rectangle a, Rectangle b)
         return fabsf((MAX(a.x, b.x) - MIN(a.x + a.width, b.x + b.width)) * (MAX(a.y, b.y) - MIN(a.y + a.height, b.y + b.height)));
 }
 
-// get the music note drop speed now
+// get the calculated music note dropping speed.
 float speed_now()
 {
     return INIT_MUSIC_NOTE_SPEED + (frame_counter / 3000.0f);
 }
 
-// data will be copied
 // run a function at a future point of frame
 // RETURN: true if registration successful else false
+// (data will be copied)
 static bool register_at_frame(unsigned int frame, void (*f)(void*), void* data, size_t data_size)
 {
     if (frame_counter > frame)
@@ -166,6 +174,7 @@ static bool register_at_frame(unsigned int frame, void (*f)(void*), void* data, 
     return true;
 }
 
+// a callback, see structure FrameRegistration
 typedef struct
 {
     TouchBlock* touch_block;
@@ -176,6 +185,7 @@ void __frame_register_set_touch_block_color(__frame_register_set_touch_block_col
     data->touch_block->color = data->color;
 }
 
+// a callback, see structure FrameRegistration
 typedef struct
 {
     TextBox* textbox;
@@ -188,6 +198,7 @@ void __frame_register_animate_text(__frame_register_animate_text_t* data)
     data->textbox->y += data->dy;
 }
 
+// a callback, see structure FrameRegistration
 typedef struct
 {
     ListNode* node;
@@ -199,6 +210,7 @@ void __frame_register_drop_animate_text(__frame_register_drop_animate_text_t* da
     free(textbox);
 }
 
+// animate a text for the interval from (now) to (now + frame)
 void register_animate_text(unsigned int frame, const char* text, int fontsize, Color fontcolor, float start_x,
     float start_y)
 {
